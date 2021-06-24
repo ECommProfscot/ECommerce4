@@ -50,6 +50,25 @@ namespace ECommerc.Api.Products.Test
             Assert.True(result.Product.Id == 4);
         }
 
+        [Fact]
+        public async void GetProductsReturnsProductById2()
+        {
+            var options = new DbContextOptionsBuilder<ProductsDbContext>().UseInMemoryDatabase(nameof(GetProductsReturnsProductById2)).Options;
+            var dbContext = new ProductsDbContext(options);
+
+            CreateProducts(dbContext);
+            var productProfile = new ProductProfile();
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(productProfile));
+            var mapper = new Mapper(configuration);
+
+            var productsProvider = new ProductsProvider(dbContext, null, mapper);
+            var result = await productsProvider.GetProductAsync(5);
+
+            Assert.True(result.IsSuccess);
+            Assert.NotNull(result.Product);
+            Assert.Null(result.ErrorMessage);
+            Assert.True(result.Product.Id == 4);
+        }
 
         [Fact]
         public async void GetProductsReturnsProductByWrongId()
