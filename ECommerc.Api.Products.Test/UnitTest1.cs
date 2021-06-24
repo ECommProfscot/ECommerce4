@@ -53,6 +53,7 @@ namespace ECommerc.Api.Products.Test
         [Fact]
         public async void GetProductsReturnsProductById2()
         {
+            //Test
             var options = new DbContextOptionsBuilder<ProductsDbContext>().UseInMemoryDatabase(nameof(GetProductsReturnsProductById2)).Options;
             var dbContext = new ProductsDbContext(options);
 
